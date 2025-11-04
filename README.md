@@ -12,7 +12,7 @@ LLT Assistant helps developers write better tests faster by:
 
 ## Features
 
-### Phase 1 (Current) - Basic Infrastructure
+### Phase 1 (Complete) - Basic Infrastructure
 - ✅ Right-click context menu integration for Python files
 - ✅ Function code analysis and extraction
 - ✅ API integration with OpenAI and Claude
@@ -20,8 +20,20 @@ LLT Assistant helps developers write better tests faster by:
 - ✅ User-friendly dialog interfaces
 - ✅ Error handling and retry mechanisms
 
-### Coming Soon (Phase 2)
-- 🔜 Two-stage AI agent architecture for intelligent test generation
+### Phase 2 (Complete) - Python AST Analysis Engine
+- ✅ AST-based code analysis using Python's `ast` module
+- ✅ Function signature extraction with type annotations
+- ✅ Control flow analysis (branches, exceptions)
+- ✅ External function call detection
+- ✅ Class context recognition for methods
+- ✅ Import statement extraction
+- ✅ Docstring and comment extraction
+- ✅ Cyclomatic complexity calculation
+- ✅ Stage 1 prompt builder for LLM integration
+- ✅ Auto-confirmation logic for simple functions
+
+### Coming Soon (Phase 3)
+- 🔜 Two-stage AI agent architecture integration
 - 🔜 Scenario confirmation workflow
 - 🔜 Automatic pytest code generation
 - 🔜 Test file creation and organization
@@ -29,6 +41,7 @@ LLT Assistant helps developers write better tests faster by:
 ## Requirements
 
 - VSCode version 1.105.0 or higher
+- Python 3.8 or higher (for code analysis)
 - Node.js 18 or higher (for development)
 - An API key from either:
   - OpenAI (gpt-4, gpt-3.5-turbo, etc.)
@@ -165,6 +178,11 @@ This extension contributes the following settings:
 ```
 .
 ├── src/
+│   ├── analysis/         # Phase 2: Python AST analysis engine
+│   │   ├── types.ts      # Type definitions for analysis
+│   │   ├── pythonAstAnalyzer.ts  # Python subprocess wrapper
+│   │   ├── contextBuilder.ts     # Stage 1 prompt builder
+│   │   └── index.ts      # Analysis module exports
 │   ├── api/              # API client and configuration
 │   │   ├── client.ts     # LLM API client (OpenAI/Claude)
 │   │   ├── config.ts     # Configuration manager
@@ -174,15 +192,24 @@ This extension contributes the following settings:
 │   │   ├── dialogs.ts    # Dialog helpers
 │   │   └── index.ts      # UI module exports
 │   ├── utils/            # Utility functions
-│   │   ├── codeAnalysis.ts  # Python code analyzer
+│   │   ├── codeAnalysis.ts  # Basic code analyzer (Phase 1)
 │   │   └── index.ts      # Utils module exports
 │   ├── types/            # TypeScript type definitions
 │   │   └── index.ts      # Type definitions
 │   ├── extension.ts      # Main extension entry point
 │   └── test/             # Test files
+│       ├── extension.test.ts     # Extension tests
+│       └── analysis.test.ts      # Analysis engine tests
+├── python/               # Python analysis scripts
+│   └── ast_analyzer.py   # Core AST analysis engine
+├── test_fixtures/        # Test case files
+│   ├── test_case_1_simple.py
+│   ├── test_case_2_branches.py
+│   └── test_case_3_class.py
 ├── dist/                 # Compiled output
 ├── package.json          # Extension manifest
 ├── tsconfig.json         # TypeScript configuration
+├── PHASE2_IMPLEMENTATION.md  # Phase 2 detailed documentation
 └── README.md            # This file
 ```
 
@@ -253,9 +280,19 @@ pnpm run package
 - API client with OpenAI and Claude support
 - Error handling and retry logic
 - UI components for user interaction
-- Code analysis utilities
+- Basic code analysis utilities
 
-### Phase 2: AI Agent Implementation (Coming Soon)
+### Phase 2: Python AST Analysis Engine (Complete)
+- **AST Parser**: Python's `ast` module for accurate code parsing
+- **Signature Extraction**: Parameters, types, decorators, return values
+- **Body Analysis**: Branches, exceptions, external calls, complexity
+- **Class Context**: Method detection, attributes, base classes
+- **Context Builder**: Format analysis results for LLM consumption
+- **TypeScript Integration**: Subprocess wrapper for seamless integration
+
+See [PHASE2_IMPLEMENTATION.md](./PHASE2_IMPLEMENTATION.md) for detailed documentation.
+
+### Phase 3: AI Agent Implementation (Coming Soon)
 - **Stage 1 Agent**: Scenario identification and confirmation
 - **Stage 2 Agent**: Test code generation
 - Prompt engineering for optimal results
@@ -271,17 +308,31 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 ## Release Notes
 
+### 0.0.2 (Phase 2)
+
+Python AST Analysis Engine:
+- AST-based code parsing with Python's `ast` module
+- Comprehensive function signature extraction
+- Control flow analysis (branches, exceptions)
+- External function call detection
+- Class context recognition for methods
+- Import statement analysis
+- Docstring and comment extraction
+- Cyclomatic complexity calculation
+- Stage 1 prompt builder for LLM integration
+- Auto-confirmation logic for simple functions
+
 ### 0.0.1 (Phase 1)
 
 Initial release with basic infrastructure:
 - Right-click menu integration
 - API client setup (OpenAI & Claude)
 - Configuration management
-- Code analysis utilities
+- Basic code analysis utilities
 - UI dialog components
 - Error handling and retry mechanisms
 
-**Next**: Phase 2 will implement the full AI-powered test generation workflow.
+**Next**: Phase 3 will implement the full AI-powered test generation workflow.
 
 ---
 
